@@ -6,7 +6,7 @@ const transformFirebaseData = (data) => data
   ? Object.keys(data).map((key) => ({ ...data[key], id: key }))
   : [];
 
-export const getPostsApi = new Promise((resolve, reject) => {
+export const getPostsApi = () => new Promise((resolve, reject) => {
   axios({
     url: `${baseUrl}/posts.json`,
     method: 'get',

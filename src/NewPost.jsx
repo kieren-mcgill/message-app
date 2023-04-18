@@ -1,6 +1,8 @@
 import {Button, Grid, TextField} from "@mui/material";
 import {useState} from "react";
 import {postPostApi} from "./firebase-client";
+import styles from './styles/NewPost-styling.module.css'
+import SendIcon from '@mui/icons-material/Send';
 
 const NewPost = (props) => {
 
@@ -32,19 +34,11 @@ const NewPost = (props) => {
     }
 
     return (
-        <>
-            <form onSubmit={onSubmit}>
-                <Grid container spacing={4}>
-                    <Grid item>
-                        <TextField onChange={onChange} id="new-post" label="New post" variant="outlined"
-                                   value={postInfo.text}/>
-                    </Grid>
-                    <Grid item>
-                        <Button type="submit" variant="contained">Post</Button>
-                    </Grid>
-                </Grid>
-            </form>
-        </>
+        <form className={styles.postForm} onSubmit={onSubmit}>
+            <TextField className={styles.postInput} onChange={onChange} id="new-post" placeholder="What do you want to say?" variant="outlined"
+                       value={postInfo.text}/>
+            <Button type="submit"><SendIcon /></Button>
+        </form>
     )
 }
 

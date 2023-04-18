@@ -1,7 +1,9 @@
 import NewPost from "./NewPost";
-import PostBoard from "./PostBoard";
 import {useEffect, useState} from "react";
 import {getPostsApi} from "./firebase-client";
+import PostDisplay from "./PostDisplay";
+import Header from "./Header";
+
 
 const App = () => {
     const [publishedPosts, setPublishedPosts] = useState([]);
@@ -17,10 +19,16 @@ const App = () => {
     }, [])
 
     return (
-        <>
-            <PostBoard publishedPosts={publishedPosts} username={username} getPosts={getPosts}/>
-            <NewPost getPosts={getPosts} username={username}/>
-        </>
+        <div>
+            <Header />
+            <div>
+                <NewPost getPosts={getPosts} username={username}/>
+                <PostDisplay publishedPosts={publishedPosts} username={username} getPosts={getPosts}/>
+
+            </div>
+
+
+        </div>
     );
 };
 

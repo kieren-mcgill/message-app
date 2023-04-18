@@ -1,6 +1,6 @@
 import {Button} from "@mui/material";
-import {useState} from "react";
 import {deletePostApi, dislikePostApi, likePostApi} from "./firebase-client";
+import styles from './styles/PublishedPost.styling-module.css'
 
 
 const PublishedPost = (props) => {
@@ -34,7 +34,8 @@ const PublishedPost = (props) => {
 
     return (
         <div>
-            <p>{props.text}</p>
+            <p>{props.post.username} says:</p>
+            <p className={styles.publishedPost}>{props.text}</p>
             <p>👍 {props.likes.length}</p>
             <Button onClick={likeBtn}>{clientLiked ? 'unlike' : 'like'}</Button>
             {props.post.username === props.username && <Button onClick={deleteBtn}>Delete</Button>}

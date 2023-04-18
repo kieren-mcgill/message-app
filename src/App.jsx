@@ -1,7 +1,7 @@
 import NewPost from "./NewPost";
 import PostBoard from "./PostBoard";
-import {useState} from "react";
-import {getPostsApi, postPostApi} from "./firebase-client";
+import {useEffect, useState} from "react";
+import {dislikePostApi, getPostsApi, likePostApi, postPostApi} from "./firebase-client";
 
 const App = () => {
     const [publishedPosts, setPublishedPosts] = useState([]);
@@ -13,16 +13,30 @@ const App = () => {
             .then((retrievedPosts) => setPublishedPosts(retrievedPosts))
     }
 
+    useEffect(() => {
+        getPosts()
+    }, [])
+
+
     const addPost = (post) => {
         postPostApi(post, username)
-            .then(() => {
-                getPosts();
-            })
+            .then(getPosts)
+    }
+
+    const likePost = (post) => {
+        likePostApi(post, username)
+            .then(getPosts)
+    }
+
+    const unlikePost = (post) => {
+        dislikePostApi(post, username)
+            .then(getPosts)
     }
 
     return (
         <>
-            <PostBoard publishedPosts={publishedPosts}/>
+            <PostBoard publishedPosts={publishedPosts} username={username} likePost={likePost} unlikePost={unlikePost}
+                       getPosts={getPosts}/>
             <NewPost addPost={addPost}/>
         </>
     );

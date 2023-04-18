@@ -1,18 +1,23 @@
-
 import {Button, Grid, TextField} from "@mui/material";
 import {useState} from "react";
+import {postPostApi} from "./firebase-client";
 
-const NewPost = ({ addPost }) => {
+const NewPost = (props) => {
 
     const [postInfo, setPostInfo] = useState(
         {
             text: ''
         }
     )
+
+    const addPost = (post) => {
+        postPostApi(post, props.username)
+            .then(props.getPosts)
+    }
+
     const onSubmit = (event) => {
         event.preventDefault()
         addPost(postInfo)
-        console.log(postInfo)
         setPostInfo({
             text: ''
         })
@@ -20,7 +25,8 @@ const NewPost = ({ addPost }) => {
 
     const onChange = (event) => {
         setPostInfo(
-            {...postInfo, text : event.target.value
+            {
+                ...postInfo, text: event.target.value
             }
         )
     }
@@ -30,7 +36,7 @@ const NewPost = ({ addPost }) => {
             <form onSubmit={onSubmit}>
                 <Grid container spacing={4}>
                     <Grid item>
-                        <TextField onChange={onChange}  id="new-post" label="New post" variant="outlined"
+                        <TextField onChange={onChange} id="new-post" label="New post" variant="outlined"
                                    value={postInfo.text}/>
                     </Grid>
                     <Grid item>

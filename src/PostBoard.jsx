@@ -11,7 +11,7 @@ const PostBoard = (props) => {
             {props.publishedPosts.map((post) =>
                 <div key={post.id}>
                     <PublishedPost text={post.text} likes={sortLikes(post)}
-                                   username={props.username} likePost={props.likePost} unlikePost={props.unlikePost}
+                                   username={props.username}
                                    post={post}
                                    getPosts={props.getPosts}
                     ></PublishedPost>

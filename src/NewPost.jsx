@@ -35,7 +35,11 @@ const NewPost = (props) => {
 
     return (
         <form className={styles.postForm} onSubmit={onSubmit}>
-            <TextField className={styles.postInput} onChange={onChange} id="new-post" placeholder="What do you want to say?" variant="outlined"
+            <TextField className={styles.postInput}
+                       onChange={onChange}
+                       id="new-post"
+                       placeholder="What do you want to say?"
+                       variant="outlined"
                        value={postInfo.text}/>
             <Button type="submit"><SendIcon /></Button>
         </form>

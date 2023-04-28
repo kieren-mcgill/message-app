@@ -1,4 +1,5 @@
 import PublishedPost from "./PublishedPost";
+import styles from './styles/PostBoard-styling.module.css'
 
 const PostBoard = (props) => {
 
@@ -7,15 +8,15 @@ const PostBoard = (props) => {
     }
 
     return (
-        <div>
-            {props.publishedPosts.map((post) =>
-                <div key={post.id}>
+        <div className={styles.postBoard}>
+            {props.publishedPosts.map((post, i) =>
                     <PublishedPost text={post.text} likes={sortLikes(post)}
+                                   order={i}
+                                   key={post.id}
                                    username={props.username}
                                    post={post}
                                    getPosts={props.getPosts}
                     ></PublishedPost>
-                </div>
             )}
         </div>
     )

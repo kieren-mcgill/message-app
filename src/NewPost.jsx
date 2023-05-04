@@ -1,10 +1,9 @@
-import {Button, Grid, TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import {useState} from "react";
-import {postPostApi} from "./firebase-client";
 import styles from './styles/NewPost-styling.module.css'
 import SendIcon from '@mui/icons-material/Send';
 
-const NewPost = (props) => {
+const NewPost = ({axiosClient}) => {
 
     const [postInfo, setPostInfo] = useState(
         {
@@ -12,20 +11,15 @@ const NewPost = (props) => {
         }
     )
 
-    const addPost = (post) => {
-        postPostApi(post, props.username)
-            .then(props.getPosts)
-    }
-
-    const onSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault()
-        addPost(postInfo)
+        axiosClient.postMessage(postInfo)
         setPostInfo({
             text: ''
         })
     }
 
-    const onChange = (event) => {
+    const handleChange = (event) => {
         setPostInfo(
             {
                 ...postInfo, text: event.target.value
@@ -34,9 +28,9 @@ const NewPost = (props) => {
     }
 
     return (
-        <form className={styles.postForm} onSubmit={onSubmit}>
+        <form className={styles.postForm} onSubmit={handleSubmit}>
             <TextField className={styles.postInput}
-                       onChange={onChange}
+                       onChange={handleChange}
                        id="new-post"
                        placeholder="What do you want to say?"
                        variant="outlined"

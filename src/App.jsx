@@ -1,35 +1,23 @@
 import NewPost from "./NewPost";
-import {useEffect, useState} from "react";
-import {getPostsApi} from "./firebase-client";
 import PostDisplay from "./PostDisplay";
 import Header from "./Header";
 
 
-const App = () => {
-    const [publishedPosts, setPublishedPosts] = useState([]);
-    const username = 'kieren_m';
-
-    const getPosts = () => {
-        getPostsApi()
-            .then((retrievedPosts) => setPublishedPosts(retrievedPosts))
-    }
-
-    useEffect(() => {
-        getPosts()
-    }, [])
+const App = ({axiosClient, publishedMessages, username}) => {
 
     return (
         <div>
-            <Header />
+            <Header username={username}/>
             <div>
-                <NewPost getPosts={getPosts} username={username}/>
-                <PostDisplay publishedPosts={publishedPosts} username={username} getPosts={getPosts}/>
-
+                <NewPost axiosClient={axiosClient}/>
+                <PostDisplay
+                    publishedMessages={publishedMessages}
+                    username={username}
+                    axiosClient={axiosClient}
+                />
             </div>
-
-
         </div>
-    );
-};
+    )
+}
 
 export default App;

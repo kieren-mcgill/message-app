@@ -1,6 +1,6 @@
 import PublishedPost from "./PublishedPost";
 
-const MyActivity = (props) => {
+const MyActivity = ({axiosClient, username, publishedMessages}) => {
 
     const sortLikes = (post) => {
         return post.likes ? post.likes : []
@@ -8,12 +8,13 @@ const MyActivity = (props) => {
 
     return (
         <div>
-            {props.publishedPosts.filter((post) => post.username === props.username).map((post) =>
+            {publishedMessages.filter((post) => post.username === username).map((post) =>
                 <div key={post.id}>
-                    <PublishedPost text={post.text} likes={sortLikes(post)}
-                                   username={props.username}
-                                   post={post}
-                                   getPosts={props.getPosts}
+                    <PublishedPost text={post.text}
+                                   likes={sortLikes(post)}
+                                   key={post.id}
+                                   username={username}
+                                   axiosClient={axiosClient}
                     ></PublishedPost>
                 </div>
             )}

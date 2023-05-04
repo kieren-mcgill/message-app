@@ -1,7 +1,7 @@
 import PublishedPost from "./PublishedPost";
 import styles from './styles/PostBoard-styling.module.css'
 
-const PostBoard = (props) => {
+const PostBoard = ({axiosClient, publishedMessages}) => {
 
     const sortLikes = (post) => {
         return post.likes ? post.likes : []
@@ -9,13 +9,12 @@ const PostBoard = (props) => {
 
     return (
         <div className={styles.postBoard}>
-            {props.publishedPosts.map((post, i) =>
-                    <PublishedPost text={post.text} likes={sortLikes(post)}
-                                   order={i}
+            {publishedMessages.map((post) =>
+                    <PublishedPost text={post.text}
+                                   likes={sortLikes(post)}
                                    key={post.id}
-                                   username={props.username}
-                                   post={post}
-                                   getPosts={props.getPosts}
+                                   username={publishedMessages.username}
+                                   axiosClient={axiosClient}
                     ></PublishedPost>
             )}
         </div>
